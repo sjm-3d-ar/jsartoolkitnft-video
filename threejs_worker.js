@@ -21,12 +21,6 @@ var trackedMatrix = {
 }
 
 var markers = {
-    "pinball": {
-        width: 1637,
-        height: 2048,
-        dpi: 250,
-        url: "./examples/DataNFT/pinball",
-    },
     greenlight: {
         width: 1000,
         height: 607,
@@ -55,6 +49,9 @@ function start(container, marker, video, input_width, input_height, canvas_draw,
     var pw, ph;
     var ox, oy;
     var worker;
+    // ! Fix pathing for camera_para.dat; it's relative to where artoolkitNFT_wasm.js resides
+    // TODO Fix pathing for camera_para.dat; it's relative to where artoolkitNFT_wasm.js resides
+    // TODO See cameraParamUrl code in ARnft > Worker.js for reference
     var camera_para = 'Data/camera_para.dat'
 
     var canvas_process = document.createElement('canvas');
@@ -80,9 +77,9 @@ function start(container, marker, video, input_width, input_height, canvas_draw,
 
     sphere.material.flatShading;
     sphere.position.z = 0;
-    sphere.position.x = 100;
-    sphere.position.y = 100;
-    sphere.scale.set(200, 200, 200);
+    sphere.position.x = 10;
+    sphere.position.y = 10;
+    sphere.scale.set(20, 20, 20);
 
     root.matrixAutoUpdate = false;
     root.add(sphere);
@@ -111,6 +108,8 @@ function start(container, marker, video, input_width, input_height, canvas_draw,
         renderer.setSize(sw, sh);
 
         worker = new Worker('libs/artoolkitNFT.worker.js');
+
+        console.log('worker camera_para:', camera_para);
 
         worker.postMessage({ type: "load", pw: pw, ph: ph, camera_para: camera_para, marker: marker.url });
 

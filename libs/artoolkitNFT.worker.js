@@ -1,4 +1,9 @@
-importScripts('../build/artoolkitNFT_wasm.js');
+console.log("loaded artoolkitNFT...");
+
+importScripts('artoolkitNFT_wasm.js');
+
+console.log("after calling importScripts with artoolkitNFT...");
+
 self.onmessage = function (e) {
   var msg = e.data;
   switch (msg.type) {
@@ -21,7 +26,7 @@ var markerResult = null;
 function load (msg) {
 
   self.addEventListener('artoolkitNFT-loaded', function () {
-    console.debug('Loading marker at: ', msg.marker);
+    console.log('Loading marker at: ', msg.marker);
 
     var onLoad = function () {
       ar = new ARControllerNFT(msg.pw, msg.ph, param);
@@ -48,7 +53,11 @@ function load (msg) {
       console.error(error);
     };
 
-    console.debug('Loading camera at:', msg.camera_para);
+    // ! Fix pathing for camera_para.dat; it's relative to where artoolkitNFT_wasm.js resides
+    // TODO Fix pathing for camera_para.dat; it's relative to where artoolkitNFT_wasm.js resides
+    // TODO See cameraParamUrl code in ARnft > Worker.js for reference
+
+    console.log('Loading camera at:', msg.camera_para);
 
     // we cannot pass the entire ARControllerNFT, so we re-create one inside the Worker, starting from camera_param
     var param = new ARCameraParamNFT(msg.camera_para, onLoad, onError);
