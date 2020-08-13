@@ -3,12 +3,16 @@
 
 <head>
     <meta charset="utf-8">
-    <title>NFT marker example with a WebWorker and Three.js</title>
+    <title>jsartoolkitNFT video</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=0.5, maximum-scale=1">
     <link rel="stylesheet" href="css/nft-style.css">
 </head>
 
 <body>
+    <video id="videoSrc" autoplay loop crossOrigin="anonymous" webkit-playsinline playsinline>
+        <source src="https://avo-content-dev.s3.amazonaws.com/videos/bg_1588085276090.mp4" type='video/mp4'>
+    </video>
+
     <div id="loading">
         <img src="assets/JsartoolkitNFT-logo.gif" />
         <span class="loading-text">Loading, please wait</span>
@@ -26,10 +30,6 @@
 
         <canvas id="canvas"></canvas>
     </div>
-
-    <video id="videoSrc" autoplay loop crossOrigin="anonymous" webkit-playsinline playsinline>
-        <source src="https://avo-content-dev.s3.amazonaws.com/videos/bg_1588085276090.mp4" type='video/mp4'>
-    </video>
 
     <script src="libs/three.min.js"></script>
     <script src="threejs_worker.js"></script>

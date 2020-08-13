@@ -71,18 +71,17 @@ function start(container, marker, video, input_width, input_height, canvas_draw,
     scene.add(root);
     root.matrixAutoUpdate = false;
 
-    var sphere = new THREE.Mesh(
-        new THREE.SphereGeometry(0.5, 8, 8),
-        new THREE.MeshNormalMaterial()
-    );
+    const ARVideo = document.getElementById('videoSrc');
+    const texture = new THREE.VideoTexture(ARVideo);
+    const mat = new THREE.MeshLambertMaterial({ color: 0xbbbbff, map: texture });
+    const planeGeom = new THREE.PlaneGeometry(4, 3, 1, 1);
+    const videoPlane = new THREE.Mesh(planeGeom, mat);
+    videoPlane.position.z = 0;
+    videoPlane.position.x = 42;
+    videoPlane.position.y = 25;
+    videoPlane.scale.set(20, 20, 20);
 
-    sphere.material.flatShading;
-    sphere.position.z = 0;
-    sphere.position.x = 10;
-    sphere.position.y = 10;
-    sphere.scale.set(20, 20, 20);
-
-    root.add(sphere);
+    root.add(videoPlane);
 
     var load = function () {
         vw = input_width;
@@ -179,9 +178,9 @@ function start(container, marker, video, input_width, input_height, canvas_draw,
         lasttime = now;
 
         if (!world) {
-            sphere.visible = false;
+            videoPlane.visible = false;
         } else {
-          sphere.visible = true;
+          videoPlane.visible = true;
                 // interpolate matrix
                 for (var i = 0; i < 16; i++) {
                   trackedMatrix.delta[i] = world[i] - trackedMatrix.interpolated[i];
