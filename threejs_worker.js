@@ -67,13 +67,14 @@ function start(container, marker, video, input_width, input_height, canvas_draw,
 
     scene.add(camera);
 
+    var root = new THREE.Object3D();
+    scene.add(root);
+    root.matrixAutoUpdate = false;
+
     var sphere = new THREE.Mesh(
         new THREE.SphereGeometry(0.5, 8, 8),
         new THREE.MeshNormalMaterial()
     );
-
-    var root = new THREE.Object3D();
-    scene.add(root);
 
     sphere.material.flatShading;
     sphere.position.z = 0;
@@ -81,7 +82,6 @@ function start(container, marker, video, input_width, input_height, canvas_draw,
     sphere.position.y = 10;
     sphere.scale.set(20, 20, 20);
 
-    root.matrixAutoUpdate = false;
     root.add(sphere);
 
     var load = function () {
